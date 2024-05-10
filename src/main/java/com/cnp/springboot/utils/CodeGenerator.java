@@ -10,9 +10,10 @@ public class CodeGenerator {
     public static void main(String[] args) {
         generate();
     }
+
     public static final String url = "jdbc:mysql://localhost:3306/mybatis_plus?serverTimezone=GMT%2b8";
-    public static final String username ="root";
-    public static final String password ="987654";
+    public static final String username = "root";
+    public static final String password = "987654";
 
     private static void generate() {
         FastAutoGenerator.create(url, username, password)
@@ -32,8 +33,8 @@ public class CodeGenerator {
                     builder.mapperBuilder().enableMapperAnnotation().build();//mapper接口中默认添加mapper注解
                     builder.controllerBuilder().enableHyphenStyle()  // 开启驼峰转连字符
                             .enableRestStyle();  // 开启生成@RestController 控制器
-                    builder.addInclude("sys_user"); // 设置需要生成的表名
-                            //.addTablePrefix("t_", "sys_"); // 设置过滤表前缀
+                    builder.addInclude("tb_news_article"); // 设置需要生成的表名
+                    //.addTablePrefix("t_", "sys_"); // 设置过滤表前缀
                 })
                 //.templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
