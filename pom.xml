@@ -75,6 +75,7 @@
             <version>3.5.1</version>
         </dependency>
 
+        <!-- velocity 模板 -->
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-engine-core</artifactId>
