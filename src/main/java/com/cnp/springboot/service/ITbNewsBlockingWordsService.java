@@ -1,7 +1,10 @@
 package com.cnp.springboot.service;
 
+import com.cnp.springboot.entity.SysUserEntity;
 import com.cnp.springboot.entity.TbNewsBlockingWords;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2024-05-10
  */
 public interface ITbNewsBlockingWordsService extends IService<TbNewsBlockingWords> {
+
+    List<TbNewsBlockingWords> list(TbNewsBlockingWords tbNewsBlockingWords);
+
 
 }

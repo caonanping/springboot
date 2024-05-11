@@ -31,13 +31,13 @@ public class TbNewsBlockingWordsController {
     private ITbNewsBlockingWordsService tbNewsBlockingWordsService;
 
     // 查询所有数据
-    @GetMapping
-    public Result findAll() {
-        return Result.success(tbNewsBlockingWordsService.list());
+    @PostMapping("/findAll")
+    public Result findAll(@RequestBody TbNewsBlockingWords tbNewsBlockingWords) {
+        return Result.success(tbNewsBlockingWordsService.list(tbNewsBlockingWords));
     }
 
     // 新增或者更新
-    @PostMapping
+    @PostMapping("/save")
     public Result save(@RequestBody TbNewsBlockingWords tbNewsBlockingWords) {
         tbNewsBlockingWordsService.saveOrUpdate(tbNewsBlockingWords);
         return Result.success();
