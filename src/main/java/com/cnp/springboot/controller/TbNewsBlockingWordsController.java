@@ -33,14 +33,22 @@ public class TbNewsBlockingWordsController {
     // 查询所有数据
     @PostMapping("/findAll")
     public Result findAll(@RequestBody TbNewsBlockingWords tbNewsBlockingWords) {
-        return Result.success(tbNewsBlockingWordsService.list(tbNewsBlockingWords));
+        List<TbNewsBlockingWords> result = tbNewsBlockingWordsService.list(tbNewsBlockingWords);
+        return Result.success(result);
     }
 
-    // 新增或者更新
+    // 新增
     @PostMapping("/save")
     public Result save(@RequestBody TbNewsBlockingWords tbNewsBlockingWords) {
-        tbNewsBlockingWordsService.saveOrUpdate(tbNewsBlockingWords);
-        return Result.success();
+        TbNewsBlockingWords result = tbNewsBlockingWordsService.add(tbNewsBlockingWords);
+        return Result.success(result);
+    }
+
+    // 更新
+    @PostMapping("/update")
+    public Result update(@RequestBody TbNewsBlockingWords tbNewsBlockingWords) {
+        TbNewsBlockingWords result = tbNewsBlockingWordsService.update(tbNewsBlockingWords);
+        return Result.success(result);
     }
 
     //根据id进行删除
@@ -64,7 +72,7 @@ public class TbNewsBlockingWordsController {
     }
 
     //分页查询
-    @GetMapping("/page")
+    @GetMapping("page")
     public Result findPage(@RequestParam Integer pageNum,
                            @RequestParam Integer pageSize) {
         QueryWrapper<TbNewsBlockingWords> queryWrapper = new QueryWrapper<>();

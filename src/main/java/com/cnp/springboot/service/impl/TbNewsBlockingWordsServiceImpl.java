@@ -1,5 +1,6 @@
 package com.cnp.springboot.service.impl;
 
+import com.cnp.springboot.common.Result;
 import com.cnp.springboot.entity.TbNewsBlockingWords;
 import com.cnp.springboot.mapper.TbNewsBlockingWordsMapper;
 import com.cnp.springboot.service.ITbNewsBlockingWordsService;
@@ -26,6 +27,14 @@ public class TbNewsBlockingWordsServiceImpl extends ServiceImpl<TbNewsBlockingWo
 
     public List<TbNewsBlockingWords> list(TbNewsBlockingWords tbNewsBlockingWords) {
         return tbNewsBlockingWordsMapper.list(tbNewsBlockingWords);
+    }
+
+    public TbNewsBlockingWords add(TbNewsBlockingWords tbNewsBlockingWords){
+        return tbNewsBlockingWordsMapper.add(tbNewsBlockingWords);
+    }
+
+    public TbNewsBlockingWords update(TbNewsBlockingWords tbNewsBlockingWords){
+        return tbNewsBlockingWordsMapper.update(tbNewsBlockingWords);
     }
 
 }

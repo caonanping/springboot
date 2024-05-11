@@ -19,4 +19,8 @@ public interface TbNewsBlockingWordsMapper extends BaseMapper<TbNewsBlockingWord
 
     List<TbNewsBlockingWords> list(TbNewsBlockingWords tbNewsBlockingWords);
 
+    TbNewsBlockingWords add(TbNewsBlockingWords tbNewsBlockingWords);
+
+    TbNewsBlockingWords update(TbNewsBlockingWords tbNewsBlockingWords);
+
 }

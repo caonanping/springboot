@@ -4,7 +4,27 @@
 
 
     <select id="list" resultType="com.cnp.springboot.entity.TbNewsBlockingWords">
-        select * from tb_news_blocking_words
+        select *
+        from tb_news_blocking_words
     </select>
+
+    <insert id="add" parameterType="com.cnp.springboot.entity.TbNewsBlockingWords">
+        insert into tb_news_blocking_words (shie_name, channel_id, enabling_status, is_deleted, create_user)
+            value (#{shie_name},#{channel_id},#{enabling_status},#{is_deleted},#{create_user})
+    </insert>
+
+    <update id="update" parameterType="com.cnp.springboot.entity.TbNewsBlockingWords">
+        update tb_news_blocking_words
+        set shie_name=#{shieName},
+            channel_id=#{channelId},
+            enabling_status=#{enablingStatus},
+            is_deleted=#{isDeleted},
+            update_user=#{updateUser}
+        where shie_id=#{shieId}
+    </update>
+
+    <delete id="delete" parameterType="com.cnp.springboot.entity.TbNewsBlockingWords">
+        delete from tb_news_blocking_words where shie_id=#{shieId}
+    </delete>
 
 </mapper>
