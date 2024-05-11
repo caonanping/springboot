@@ -15,6 +15,12 @@ mybatis:
   mapper-locations: classpath:mybatis/*.xml  #sql映射文件位置
   configuration:
     map-underscore-to-camel-case: true
-mybatis-plus:
-  configuration:
+    cache-enabled: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#mybatis-plus:
+  #mapper-locations: classpath:mybatis/*.xml  #sql映射文件位置
+  #configuration:
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  level:
+    com.cnp.*.mapper: trace # 改成你的mapper文件所在包路径
