@@ -3,7 +3,7 @@
 <mapper namespace="com.cnp.springboot.mapper.TbNewsBlockingWordsMapper">
 
 
-    <select id="list" resultType="com.cnp.springboot.entity.TbNewsBlockingWords">
+    <select id="queryList" resultType="com.cnp.springboot.entity.TbNewsBlockingWords">
         select *
         from tb_news_blocking_words
     </select>

@@ -1,9 +1,12 @@
 package com.cnp.springboot.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cnp.springboot.common.service.BaseService;
 import com.cnp.springboot.entity.TbNewsBlockingWords;
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.cnp.springboot.response.RespBodyObj;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -13,12 +16,15 @@ import java.util.List;
  * @author cnp
  * @since 2024-05-10
  */
-public interface ITbNewsBlockingWordsService extends IService<TbNewsBlockingWords> {
+public interface ITbNewsBlockingWordsService extends BaseService<TbNewsBlockingWords> {
 
-    List<TbNewsBlockingWords> list(TbNewsBlockingWords tbNewsBlockingWords);
+    RespBodyObj<Page<TbNewsBlockingWords>>  queryList(Page<TbNewsBlockingWords> page, Map<String, Object> params);
 
-    TbNewsBlockingWords add(TbNewsBlockingWords tbNewsBlockingWords);
+    RespBodyObj<TbNewsBlockingWords> add(TbNewsBlockingWords tbNewsBlockingWords);
 
-    TbNewsBlockingWords update(TbNewsBlockingWords tbNewsBlockingWords);
+    RespBodyObj<TbNewsBlockingWords> update(TbNewsBlockingWords tbNewsBlockingWords);
 
+    RespBodyObj<?> delete(TbNewsBlockingWords tbNewsBlockingWords);
+
+    RespBodyObj<TbNewsBlockingWords> view(Long id);
 }

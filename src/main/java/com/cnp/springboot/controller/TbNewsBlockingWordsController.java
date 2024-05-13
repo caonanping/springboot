@@ -1,14 +1,13 @@
 package com.cnp.springboot.controller;
 
-import com.cnp.springboot.common.Result;
-
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cnp.springboot.common.controller.BaseController;
+import com.cnp.springboot.response.RespBodyObj;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import java.util.Map;
 
 import com.cnp.springboot.service.ITbNewsBlockingWordsService;
 import com.cnp.springboot.entity.TbNewsBlockingWords;
@@ -25,60 +24,42 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/tb-news-blocking-words")
-public class TbNewsBlockingWordsController {
+public class TbNewsBlockingWordsController extends BaseController {
 
     @Resource
     private ITbNewsBlockingWordsService tbNewsBlockingWordsService;
 
-    // 查询所有数据
-    @PostMapping("/findAll")
-    public Result findAll(@RequestBody TbNewsBlockingWords tbNewsBlockingWords) {
-        List<TbNewsBlockingWords> result = tbNewsBlockingWordsService.list(tbNewsBlockingWords);
-        return Result.success(result);
+    //分页查询
+    @PostMapping("page")
+    public RespBodyObj<Page<TbNewsBlockingWords>> list(@RequestBody Map<String, Object> params) {
+        Page<TbNewsBlockingWords> page = this.buildPage(params);
+        return tbNewsBlockingWordsService.queryList(page, params);
     }
 
     // 新增
     @PostMapping("/save")
-    public Result save(@RequestBody TbNewsBlockingWords tbNewsBlockingWords) {
-        TbNewsBlockingWords result = tbNewsBlockingWordsService.add(tbNewsBlockingWords);
-        return Result.success(result);
+    public RespBodyObj<TbNewsBlockingWords> save(@RequestBody TbNewsBlockingWords tbNewsBlockingWords) {
+        return tbNewsBlockingWordsService.add(tbNewsBlockingWords);
     }
 
     // 更新
     @PostMapping("/update")
-    public Result update(@RequestBody TbNewsBlockingWords tbNewsBlockingWords) {
-        TbNewsBlockingWords result = tbNewsBlockingWordsService.update(tbNewsBlockingWords);
-        return Result.success(result);
+    public RespBodyObj<TbNewsBlockingWords> update(@RequestBody TbNewsBlockingWords tbNewsBlockingWords) {
+        return tbNewsBlockingWordsService.update(tbNewsBlockingWords);
     }
 
     //根据id进行删除
-    @DeleteMapping("/{id}")
-    public Result delete(@PathVariable Integer id) {
-        tbNewsBlockingWordsService.removeById(id);
-        return Result.success();
-    }
-
-    //根据list ids批量删除方法
-    @PostMapping("/del/batch")
-    public Result deleteBatch(@RequestBody List<Integer> ids) {
-        tbNewsBlockingWordsService.removeByIds(ids);
-        return Result.success();
+    @PostMapping("/delete")
+    public RespBodyObj<?> delete(@RequestBody TbNewsBlockingWords tbNewsBlockingWords) {
+        return tbNewsBlockingWordsService.delete(tbNewsBlockingWords);
     }
 
     //根据id查询一条数据
-    @GetMapping("/{id}")
-    public Result findOne(@PathVariable Integer id) {
-        return Result.success(tbNewsBlockingWordsService.getById(id));
+    @GetMapping("/view")
+    public RespBodyObj<TbNewsBlockingWords> view(@RequestBody Long id) {
+        return tbNewsBlockingWordsService.view(id);
     }
 
-    //分页查询
-    @GetMapping("page")
-    public Result findPage(@RequestParam Integer pageNum,
-                           @RequestParam Integer pageSize) {
-        QueryWrapper<TbNewsBlockingWords> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("id");
-        return Result.success(tbNewsBlockingWordsService.page(new Page<>(pageNum, pageSize), queryWrapper));
-    }
 
 }
 

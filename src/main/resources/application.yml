@@ -9,7 +9,10 @@ spring:
     password: 987654
     url: jdbc:mysql://localhost:3306/mybatis_plus?serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+  messages:
+    basename: i18n/messages_zh_CN.properties   # 资源存放位置
+    encoding: UTF-8
+    use-code-as-default-message: true   #当找不到code对应的消息时，是否使用code作为消息
 # 配置mybatis规则
 mybatis:
   mapper-locations: classpath:mybatis/*.xml  #sql映射文件位置

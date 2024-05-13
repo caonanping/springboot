@@ -1,15 +1,17 @@
 package com.cnp.springboot.service.impl;
 
-import com.cnp.springboot.common.Result;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cnp.springboot.common.service.impl.BaseServiceImpl;
 import com.cnp.springboot.entity.TbNewsBlockingWords;
 import com.cnp.springboot.mapper.TbNewsBlockingWordsMapper;
+import com.cnp.springboot.resource.HttpCode;
+import com.cnp.springboot.response.RespBodyObj;
 import com.cnp.springboot.service.ITbNewsBlockingWordsService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.spel.ast.NullLiteral;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -20,21 +22,42 @@ import java.util.List;
  * @since 2024-05-10
  */
 @Service
-public class TbNewsBlockingWordsServiceImpl extends ServiceImpl<TbNewsBlockingWordsMapper, TbNewsBlockingWords> implements ITbNewsBlockingWordsService {
+public class TbNewsBlockingWordsServiceImpl extends BaseServiceImpl<TbNewsBlockingWordsMapper, TbNewsBlockingWords> implements ITbNewsBlockingWordsService {
 
-    @Autowired
-    public TbNewsBlockingWordsMapper tbNewsBlockingWordsMapper;
-
-    public List<TbNewsBlockingWords> list(TbNewsBlockingWords tbNewsBlockingWords) {
-        return tbNewsBlockingWordsMapper.list(tbNewsBlockingWords);
+    @Override
+    public RespBodyObj<Page<TbNewsBlockingWords>> queryList(Page<TbNewsBlockingWords> page, Map<String, Object> params) {
+        List<TbNewsBlockingWords> list = baseMapper.queryList(page, params);
+        page.setRecords(list);
+        return RespBodyObj.ok(page);
     }
 
-    public TbNewsBlockingWords add(TbNewsBlockingWords tbNewsBlockingWords){
-        return tbNewsBlockingWordsMapper.add(tbNewsBlockingWords);
+    public RespBodyObj<TbNewsBlockingWords> add(TbNewsBlockingWords tbNewsBlockingWords) {
+        if (baseMapper.add(tbNewsBlockingWords) > 0) {
+            return RespBodyObj.ok();
+        }
+        return RespBodyObj.error(HttpCode.SQL_SAVE_ERROR);
     }
 
-    public TbNewsBlockingWords update(TbNewsBlockingWords tbNewsBlockingWords){
-        return tbNewsBlockingWordsMapper.update(tbNewsBlockingWords);
+    public RespBodyObj<TbNewsBlockingWords> update(TbNewsBlockingWords tbNewsBlockingWords) {
+        if (baseMapper.update(tbNewsBlockingWords) > 0) {
+            return RespBodyObj.ok();
+        }
+        return RespBodyObj.error(HttpCode.SQL_UPDATE_ERROR);
+    }
+
+    public RespBodyObj<?> delete(TbNewsBlockingWords tbNewsBlockingWords) {
+        if (baseMapper.delete(tbNewsBlockingWords.getShieId()) > 0) {
+            return RespBodyObj.ok();
+        }
+        return RespBodyObj.error(HttpCode.SQL_DELETE_ERROR);
+    }
+
+    public RespBodyObj<TbNewsBlockingWords> view(Long id) {
+        if (baseMapper.view(id) != null) {
+            return RespBodyObj.ok();
+        } else {
+            return RespBodyObj.error(HttpCode.SQL_QUERY_ISNULL);
+        }
     }
 
 }
