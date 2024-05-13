@@ -2,29 +2,85 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cnp.springboot.mapper.TbNewsBlockingWordsMapper">
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cnp.springboot.entity.TbNewsBlockingWords">
+        <result column="pk_shie_id" property="pkShieId"/>
+        <result column="shie_name" property="shieName"/>
+        <result column="channel_id" property="channelId"/>
+        <result column="enabling_status" property="enablingStatus"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
 
-    <select id="queryList" resultType="com.cnp.springboot.entity.TbNewsBlockingWords">
-        select *
+    <select id="queryList" resultMap="BaseResultMap">
+        select pk_shie_id,
+               shie_name,
+               channel_id,
+               enabling_status,
+               is_deleted,
+               create_user,
+               create_time,
+               update_user,
+               update_time
         from tb_news_blocking_words
     </select>
 
-    <insert id="add" parameterType="com.cnp.springboot.entity.TbNewsBlockingWords">
-        insert into tb_news_blocking_words (shie_name, channel_id, enabling_status, is_deleted, create_user)
-            value (#{shie_name},#{channel_id},#{enabling_status},#{is_deleted},#{create_user})
+    <insert id="add">
+        insert into tb_news_blocking_words (shie_name, channel_id, create_user)
+            value (#{shieName},#{channelId},#{createUser})
     </insert>
 
-    <update id="update" parameterType="com.cnp.springboot.entity.TbNewsBlockingWords">
+    <update id="update">
         update tb_news_blocking_words
-        set shie_name=#{shieName},
+        set
+        <if test="shieName != null ">
+            shie_name=#{shieName},
+        </if>
+        <if test="channelId != null ">
             channel_id=#{channelId},
+        </if>
+        <if test="enablingStatus != null ">
             enabling_status=#{enablingStatus},
+        </if>
+        <if test="isDeleted != null ">
             is_deleted=#{isDeleted},
+        </if>
+        <if test="updateUser != null ">
             update_user=#{updateUser}
-        where shie_id=#{shieId}
+        </if>
+        where pk_shie_id = #{pkShieId}
     </update>
 
-    <delete id="delete" parameterType="com.cnp.springboot.entity.TbNewsBlockingWords">
-        delete from tb_news_blocking_words where shie_id=#{shieId}
+    <delete id="delete">
+        delete
+        from tb_news_blocking_words
+        where pk_shie_id = #{pkShieId}
     </delete>
+
+    <select id="view" resultType="com.cnp.springboot.entity.TbNewsBlockingWords">
+        select pk_shie_id      as pkShieId,
+               shie_name       as shieName,
+               channel_id      as channelId,
+               enabling_status as enablingStatus,
+               is_deleted      as isDeleted,
+               create_user     as createUser,
+               create_time     as createTime,
+               update_user     as updateUser,
+               update_time     as updateTime
+        from tb_news_blocking_words
+        where pk_shie_id = #{pkShieId}
+    </select>
+
+    <select id="selectName" resultMap="BaseResultMap">
+        select pk_shie_id , shie_name from tb_news_blocking_words
+        <where>
+            <if test="shieName !=null and shieName != ''">
+                shie_name = #{shieName}
+            </if>
+        </where>
+    </select>
 
 </mapper>

@@ -55,9 +55,9 @@ public class TbNewsBlockingWordsController extends BaseController {
     }
 
     //根据id查询一条数据
-    @GetMapping("/view")
-    public RespBodyObj<TbNewsBlockingWords> view(@RequestBody Long id) {
-        return tbNewsBlockingWordsService.view(id);
+    @PostMapping("/view")
+    public RespBodyObj<TbNewsBlockingWords> view(@RequestBody TbNewsBlockingWords tbNewsBlockingWords) {
+        return tbNewsBlockingWordsService.view(tbNewsBlockingWords);
     }
 
 

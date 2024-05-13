@@ -26,5 +26,5 @@ public interface ITbNewsBlockingWordsService extends BaseService<TbNewsBlockingW
 
     RespBodyObj<?> delete(TbNewsBlockingWords tbNewsBlockingWords);
 
-    RespBodyObj<TbNewsBlockingWords> view(Long id);
+    RespBodyObj<TbNewsBlockingWords> view(TbNewsBlockingWords tbNewsBlockingWords);
 }

@@ -26,8 +26,10 @@ public interface TbNewsBlockingWordsMapper extends BaseMapper<TbNewsBlockingWord
 
     int update(TbNewsBlockingWords tbNewsBlockingWords);
 
-   int delete(@Param("shieId") long shieId);
+    int delete(@Param("pkShieId") long pkShieId);
 
-   TbNewsBlockingWords view(@Param("shieId") long shieId);
+    TbNewsBlockingWords view(@Param("pkShieId") long pkShieId);
+
+    TbNewsBlockingWords selectName(@Param("shieName") String  shieName);
 
 }

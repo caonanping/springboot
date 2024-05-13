@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,31 +26,32 @@ public class TbNewsBlockingWords implements Serializable {
     private static final long serialVersionUID = 1L;
 
     //屏蔽词ID
-    private Long shieId;
+    private Long pkShieId;
 
     //屏蔽词名称
     private String shieName;
 
     //商户ID
-    private Integer channelId;
+    private String channelId;
 
     //是否启用（0 未启用  1 启用）
-    private Boolean enablingStatus;
+    private int enablingStatus;
 
     //删除状态（0 未删除  1 已删除）
-    private Boolean isDeleted;
+    private int isDeleted;
 
     //创建人
     private String createUser;
 
     //创建时间
-    private LocalDateTime createTime;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
 
     //修改人
     private String updateUser;
 
     //修改时间
-    private LocalDateTime updateTime;
-
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updateTime;
 
 }

@@ -32,6 +32,10 @@ public class TbNewsBlockingWordsServiceImpl extends BaseServiceImpl<TbNewsBlocki
     }
 
     public RespBodyObj<TbNewsBlockingWords> add(TbNewsBlockingWords tbNewsBlockingWords) {
+        TbNewsBlockingWords name = baseMapper.selectName(tbNewsBlockingWords.getShieName());
+        if (name != null && !name.equals("")) {
+            return RespBodyObj.error(HttpCode.SQL_SAVE_ERROR);
+        }
         if (baseMapper.add(tbNewsBlockingWords) > 0) {
             return RespBodyObj.ok();
         }
@@ -39,6 +43,10 @@ public class TbNewsBlockingWordsServiceImpl extends BaseServiceImpl<TbNewsBlocki
     }
 
     public RespBodyObj<TbNewsBlockingWords> update(TbNewsBlockingWords tbNewsBlockingWords) {
+        TbNewsBlockingWords name = baseMapper.selectName(tbNewsBlockingWords.getShieName());
+        if (name != null && !name.equals("")) {
+            return RespBodyObj.error(HttpCode.SQL_UPDATE_ERROR);
+        }
         if (baseMapper.update(tbNewsBlockingWords) > 0) {
             return RespBodyObj.ok();
         }
@@ -46,15 +54,16 @@ public class TbNewsBlockingWordsServiceImpl extends BaseServiceImpl<TbNewsBlocki
     }
 
     public RespBodyObj<?> delete(TbNewsBlockingWords tbNewsBlockingWords) {
-        if (baseMapper.delete(tbNewsBlockingWords.getShieId()) > 0) {
+        if (baseMapper.delete(tbNewsBlockingWords.getPkShieId()) > 0) {
             return RespBodyObj.ok();
         }
         return RespBodyObj.error(HttpCode.SQL_DELETE_ERROR);
     }
 
-    public RespBodyObj<TbNewsBlockingWords> view(Long id) {
-        if (baseMapper.view(id) != null) {
-            return RespBodyObj.ok();
+    public RespBodyObj<TbNewsBlockingWords> view(TbNewsBlockingWords tbNewsBlockingWords) {
+        TbNewsBlockingWords result = baseMapper.view(tbNewsBlockingWords.getPkShieId());
+        if (result != null) {
+            return RespBodyObj.ok(result);
         } else {
             return RespBodyObj.error(HttpCode.SQL_QUERY_ISNULL);
         }
